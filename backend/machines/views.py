@@ -29,3 +29,29 @@ def machine_list(request):
             machine_serializer.save()
             return JsonResponse(machine_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def machine_detail(request, id):
+    try:
+        machine = Machine.objects.get(id=id)
+    except Machine.DoesNotExist:
+        return JsonResponse({'message': 'The machine does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # machine_serializer = MachineSerializer(machine)
+        # return JsonResponse(machine_serializer.data)
+        return Response('not yet implemented', status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    elif request.method == 'PUT':
+        machine_data = JSONParser().parse(request)
+        machine_serializer = MachineSerializer(machine, data=machine_data)
+        if machine_serializer.is_valid():
+            machine_serializer.save()
+            return JsonResponse(machine_serializer.data)
+        return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # machine.delete()
+        # return JsonResponse({'message': 'Machine was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        return Response('not yet implemented', status=status.HTTP_501_NOT_IMPLEMENTED)
