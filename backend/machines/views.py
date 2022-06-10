@@ -19,12 +19,14 @@ def machine_list(request):
 
         description = request.query_params.get('description', None)
         machineType = request.query_params.get('machineType', None)
+        # Filter machines
         filterQuery = Q()
         if description is not None:
             filterQuery = Q(description__icontains=description)
         if machineType is not None:
             filterQuery = filterQuery | Q(machineType__exact=machineType)
         machines = machines.filter(filterQuery)
+
         machines_serializer = MachineSerializer(machines, many=True)
         return JsonResponse(machines_serializer.data, safe=False)
         # 'safe=False' for objects serialization
