@@ -9,3 +9,4 @@ class Machine(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
     company = models.CharField(max_length=60, blank=False, default='')
     machineType = models.ForeignKey(MachineType, on_delete=models.CASCADE)
+    isBaja = models.BooleanField(default=False)
