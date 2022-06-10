@@ -36,7 +36,7 @@ def machine_detail(request, id):
     try:
         machine = Machine.objects.get(id=id)
     except Machine.DoesNotExist:
-        return JsonResponse({'message': 'The machine does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'message': 'La maquina no existe'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         # machine_serializer = MachineSerializer(machine)
@@ -52,6 +52,6 @@ def machine_detail(request, id):
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        # machine.delete()
-        # return JsonResponse({'message': 'Machine was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-        return Response('not yet implemented', status=status.HTTP_501_NOT_IMPLEMENTED)
+        machine.isBaja = True
+        machine.save()
+        return JsonResponse({'message': 'La maquina se dio de baja correctamente'}, status=status.HTTP_204_NO_CONTENT)
