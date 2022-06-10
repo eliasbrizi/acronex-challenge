@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
@@ -54,3 +55,10 @@ def machine_detail(request, id):
         machine.isBaja = True
         machine.save()
         return JsonResponse({'message': 'La maquina se dio de baja correctamente'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def machine_last(request, id):
+    response = requests.get(
+        'https://wrk.acronex.com/api/challenge/last/' + str(id))
+    return Response(response.json())
