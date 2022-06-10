@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse
+from django.db.models import Q
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from machines.models import Machine
 from machines.serializers import MachineSerializer
 from rest_framework.decorators import api_view
+from itertools import chain
 
 from rest_framework.response import Response
 
@@ -15,10 +17,14 @@ def machine_list(request):
     if request.method == 'GET':
         machines = Machine.objects.all()
 
-        # title = request.query_params.get('title', None)
-        # if title is not None:
-        #     machines = machines.filter(title__icontains=title)
-
+        description = request.query_params.get('description', None)
+        machineType = request.query_params.get('machineType', None)
+        filterQuery = Q()
+        if description is not None:
+            filterQuery = Q(description__icontains=description)
+        if machineType is not None:
+            filterQuery = filterQuery | Q(machineType__exact=machineType)
+        machines = machines.filter(filterQuery)
         machines_serializer = MachineSerializer(machines, many=True)
         return JsonResponse(machines_serializer.data, safe=False)
         # 'safe=False' for objects serialization
