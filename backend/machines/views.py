@@ -39,9 +39,8 @@ def machine_detail(request, id):
         return JsonResponse({'message': 'La maquina no existe'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        # machine_serializer = MachineSerializer(machine)
-        # return JsonResponse(machine_serializer.data)
-        return Response('not yet implemented', status=status.HTTP_501_NOT_IMPLEMENTED)
+        machine_serializer = MachineSerializer(machine)
+        return JsonResponse(machine_serializer.data)
 
     elif request.method == 'PUT':
         machine_data = JSONParser().parse(request)
