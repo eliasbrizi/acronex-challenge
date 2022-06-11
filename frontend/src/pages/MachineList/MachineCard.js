@@ -4,17 +4,21 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 
 export const MachineCard = ({ machine }) => {
   // const [isStockDialogOpen, setStockDialogOpen] = React.useState(false);
 
-  const handleCardAction = React.useCallback(() => {
+  const handleCardAction = useCallback(() => {
     // setStockDialogOpen(true)
   }, []);
 
-  const closeDialog = React.useCallback(() => {
+  const closeDialog = useCallback(() => {
     // setStockDialogOpen(false)
   }, []);
+
+  const chipColor = useMemo(() => machine.working ? "#278e06" : "#e13e5b", [machine.working])
+  const chipLabel = useMemo(() => machine.working ? "En movimiento" : "Parada", [machine.working])
 
   return (
     <>
@@ -54,7 +58,7 @@ export const MachineCard = ({ machine }) => {
                 <Typography variant="h5">{machine.description}</Typography>
               </Grid>
               <Grid item sm={1}>
-                <Chip>{machine.working}</Chip>
+                <Chip style={{ backgroundColor: chipColor }} />
               </Grid>
             </Grid>
           </CardContent>

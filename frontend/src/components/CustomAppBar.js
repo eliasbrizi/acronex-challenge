@@ -53,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function CustomAppBar() {
     return (
-        <Box sx={{ flexGrow: 1, width: '100%', marginBottom: '15%' }}>
+        <Box sx={{ flexGrow: 1, width: '100%', marginBottom: '10vh' }}>
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton
