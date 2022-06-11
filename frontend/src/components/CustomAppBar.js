@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { AcronexIcon, UnimapImage } from '../resources/images';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -56,23 +57,10 @@ export default function CustomAppBar() {
         <Box sx={{ flexGrow: 1, width: '100%', marginBottom: '10vh' }}>
             <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
-                    </Typography>
+                    <AcronexIcon />
+                    <Box sx={{ flexGrow: 1, height: '100%' }}>
+                        <UnimapImage />
+                    </Box>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
