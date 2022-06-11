@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_MACHINES = "https://wrk.acronex.com/api/challenge/machines";
 
 export const getMachines = async (id) => await GET(`${API_MACHINES}`);
-export const getMachineDetail = async (id) => await GET(`${API_MACHINES}${id}`);
+export const getMachineDetail = async (id) => await GET(`${API_MACHINES}/${id}`);
 
 // --- GENERAL METHODS ---
 const GET = async (postfixUrl) => {
