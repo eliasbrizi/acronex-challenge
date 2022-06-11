@@ -6,7 +6,7 @@ import { MachineCard } from "./MachineCard";
 import { getMachines } from "../../services/RestServices";
 
 export const MachinesList = () => {
-  const [list, setList] = useState([{}, {}, {}]);
+  const [list, setList] = useState([]);
 
 
   const fetchMachines = () => {

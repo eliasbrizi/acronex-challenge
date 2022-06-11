@@ -17,7 +17,7 @@ function App() {
       <ThemeProvider theme={Theme}>
         <CssBaseline />
         <CustomAppBar />
-        <Router>
+        <Router >
           <AppRoutes />
         </Router>
       </ThemeProvider>

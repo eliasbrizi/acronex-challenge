@@ -1,24 +1,13 @@
-import { CardActionArea, CardHeader, Chip, Grid } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import { CardActionArea, Chip, Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 export const MachineCard = ({ machine }) => {
-  // const [isStockDialogOpen, setStockDialogOpen] = React.useState(false);
-
-  const handleCardAction = useCallback(() => {
-    // setStockDialogOpen(true)
-  }, []);
-
-  const closeDialog = useCallback(() => {
-    // setStockDialogOpen(false)
-  }, []);
 
   const chipColor = useMemo(() => machine.working ? "#278e06" : "#e13e5b", [machine.working])
-  const chipLabel = useMemo(() => machine.working ? "En movimiento" : "Parada", [machine.working])
 
   return (
     <>
@@ -30,12 +19,7 @@ export const MachineCard = ({ machine }) => {
           alignItems: "center",
         }}
       >
-        <CardActionArea onClick={handleCardAction}>
-          {/* <CardHeader
-                    avatar={<Avatar sx={{ bgcolor: "#e4e4e4" }}>
-                        m
-                    </Avatar>}
-                    title={''} /> */}
+        <CardActionArea component={Link} to={`/machines/${machine.id}`}>
           <CardContent
             sx={{
               flexGrow: 1,
