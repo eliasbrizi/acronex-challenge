@@ -1,16 +1,19 @@
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Backdrop, CircularProgress } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getMachines } from "../../services/RestServices";
 import { MachineCard } from "./MachineCard";
 
 export const MachinesList = () => {
+
   const [list, setList] = useState([]);
   const [searchParams] = useSearchParams()
-
+  const [isLoading, setLoading] = useState(true)
 
   const fetchMachines = useCallback(() => {
-    getMachines(searchParams.get('search') || '').then((data) => setList(data))
+    getMachines(searchParams.get('search') || '')
+      .then((data) => setList(data || []))
+      .finally(() => setLoading(false))
   }, [searchParams]);
 
   useEffect(() => fetchMachines(), [fetchMachines]);
@@ -30,6 +33,12 @@ export const MachinesList = () => {
           </Grid>
         ))}
       </Grid>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };

@@ -1,15 +1,11 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import { alpha, styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import { useNavigate } from 'react-router-dom';
 import { AcronexIcon, UnimapImage } from '../resources/images';
-import { useHref, useNavigate } from 'react-router-dom';
 
 
 import { useForm } from "react-hook-form";
@@ -64,7 +60,6 @@ export default function CustomAppBar() {
     const onSubmit = values => {
         console.log(values['search']);
         navigate(`/machines?search=${values['search']}`)
-        // to={`machines ? search = ${ values['search']}`} 
     }
 
     return (
