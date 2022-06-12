@@ -58,7 +58,6 @@ export default function CustomAppBar() {
 
     const { handleSubmit, register, formState: { errors } } = useForm();
     const onSubmit = values => {
-        console.log(values['search']);
         navigate(`/machines?search=${values['search']}`)
     }
 
