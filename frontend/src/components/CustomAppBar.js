@@ -9,6 +9,10 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AcronexIcon, UnimapImage } from '../resources/images';
+import { useHref, useNavigate } from 'react-router-dom';
+
+
+import { useForm } from "react-hook-form";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,6 +57,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CustomAppBar() {
+
+    const navigate = useNavigate()
+
+    const { handleSubmit, register, formState: { errors } } = useForm();
+    const onSubmit = values => {
+        console.log(values['search']);
+        navigate(`/machines?search=${values['search']}`)
+        // to={`machines ? search = ${ values['search']}`} 
+    }
+
     return (
         <Box sx={{ flexGrow: 1, width: '100%', marginBottom: '10vh' }}>
             <AppBar position="fixed">
@@ -65,10 +79,13 @@ export default function CustomAppBar() {
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <StyledInputBase
+                                {...register("search")}
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </form>
                     </Search>
                 </Toolbar>
             </AppBar>

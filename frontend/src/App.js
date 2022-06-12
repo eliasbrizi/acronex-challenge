@@ -1,23 +1,19 @@
-import CustomAppBar from "./components/CustomAppBar";
-import { Box, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { Theme } from "./resources/theme";
+import { CssBaseline } from "@mui/material";
 import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Routes,
-  Switch,
+  BrowserRouter as Router
 } from "react-router-dom";
-import { AppRoutes } from './components/AppRoutes'
+import { AppRoutes } from './components/AppRoutes';
+import CustomAppBar from "./components/CustomAppBar";
+import { Theme } from "./resources/theme";
 
 function App() {
   return (
     <>
       <ThemeProvider theme={Theme}>
         <CssBaseline />
-        <CustomAppBar />
         <Router >
+          <CustomAppBar />
           <AppRoutes />
         </Router>
       </ThemeProvider>

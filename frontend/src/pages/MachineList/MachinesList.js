@@ -1,10 +1,8 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import * as React from "react";
+import { Container, Grid } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { Button, ButtonGroup } from "@mui/material";
-import { MachineCard } from "./MachineCard";
-import { getMachines } from "../../services/RestServices";
 import { useSearchParams } from "react-router-dom";
+import { getMachines } from "../../services/RestServices";
+import { MachineCard } from "./MachineCard";
 
 export const MachinesList = () => {
   const [list, setList] = useState([]);
@@ -12,7 +10,7 @@ export const MachinesList = () => {
 
 
   const fetchMachines = useCallback(() => {
-    getMachines(searchParams.get('search')).then((data) => setList(data))
+    getMachines(searchParams.get('search') || '').then((data) => setList(data))
   }, [searchParams]);
 
   useEffect(() => fetchMachines(), [fetchMachines]);
