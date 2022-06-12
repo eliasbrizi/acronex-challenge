@@ -8,7 +8,7 @@ export const DataCard = ({ data, title }) => {
     const dataList = useMemo(() => { return Object.values(data) }, [data])
 
     return (
-        <Grid item>
+        <Grid item xs={12}>
             <Card
                 sx={{
                     flexDirection: "column",
