@@ -4,16 +4,18 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import { MachineCard } from "./MachineCard";
 import { getMachines } from "../../services/RestServices";
+import { useSearchParams } from "react-router-dom";
 
 export const MachinesList = () => {
   const [list, setList] = useState([]);
+  const [searchParams] = useSearchParams()
 
 
-  const fetchMachines = () => {
-    getMachines().then((data) => setList(data))
-  };
+  const fetchMachines = useCallback(() => {
+    getMachines(searchParams.get('search')).then((data) => setList(data))
+  }, [searchParams]);
 
-  useEffect(() => fetchMachines(), []);
+  useEffect(() => fetchMachines(), [fetchMachines]);
 
   return (
     <Container
