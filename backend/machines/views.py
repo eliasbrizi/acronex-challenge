@@ -1,14 +1,14 @@
 import requests
-from django.shortcuts import render
+from django.db.models import Q
 from django.http.response import JsonResponse
-from rest_framework.parsers import JSONParser
+from django.shortcuts import render
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
 
 from machines.models import Machine
 from machines.serializers import MachineSerializer
-from rest_framework.decorators import api_view
-
-from rest_framework.response import Response
 
 
 @api_view(['GET', 'POST'])
@@ -16,11 +16,29 @@ def machine_list(request):
     if request.method == 'GET':
         machines = Machine.objects.all()
 
-        # title = request.query_params.get('title', None)
-        # if title is not None:
-        #     machines = machines.filter(title__icontains=title)
+        description = request.query_params.get('description', None)
+        machineType = request.query_params.get('machineType', None)
+        working = request.query_params.get('working', None)
+        # Filter machines
+        filterQuery = Q()
+        if description is not None:
+            filterQuery = Q(description__icontains=description)
+        if machineType is not None:
+            filterQuery = filterQuery | Q(machineType__exact=machineType)
 
-        machines_serializer = MachineSerializer(machines, many=True)
+        machines_filtered = machines.filter(filterQuery)
+
+        if working is not None:
+            for m in machines:
+                apiResponse = requests.get(
+                    'https://wrk.acronex.com/api/challenge/last/' + str(m.id))
+                if ((int(apiResponse.json()['Operación']['Velocidad'].split('.')[0]) > 0) == working):
+                    print(True)
+                    if (not machines_filtered.contains(m)):
+                        print('agreganding')
+                        machines_filtered.aggregate(m)
+
+        machines_serializer = MachineSerializer(machines_filtered, many=True)
         return JsonResponse(machines_serializer.data, safe=False)
         # 'safe=False' for objects serialization
     elif request.method == 'POST':
