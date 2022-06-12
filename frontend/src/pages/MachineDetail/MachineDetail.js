@@ -1,4 +1,4 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Divider, Container, Grid, Stack, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMachineDetail } from "../../services/RestServices";
@@ -39,6 +39,7 @@ export const MachineDetail = () => {
                             {machine.id}
                         </Typography>
                     </Stack>
+                    <Divider />
                 </Grid>
                 <MachineDetails machine={machine} />
                 <MachineData data={machine.data} />
