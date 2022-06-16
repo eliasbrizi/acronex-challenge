@@ -1,6 +1,6 @@
-#Acronex Challenge
+# Acronex Challenge
 
-##Backend:
+## Backend:
 
 Para correr la aplicación backend, se debe tener instalado Django, ademas de 'rest_framework' y 'corsheaders':
 
@@ -22,7 +22,7 @@ Las rutas aceptan los siguientes metodos:
 'api/machines/last/<int:id>'
 	- GET: devuelve los ultimos datos conocidos de la maquina
 
-##Frontend:
+## Frontend:
 
 Para levantar el front-end, dentro del directorio 'frontend', correr los siguientes comandos:
 
